@@ -169,7 +169,6 @@ recipients:  0x723960d9a5C6ab71853059861D1C6146770a6Dc1
 ```zsh
 # dynamic special mint for active contributors
 ❯ hh mint-special --network localhost --dynamic --token-uri ipfs://QmYVgQoE74xp5TigTe1EC9vDQw7tx39t3U9ySTaNHa7CdV/  metadata/genesis/genesis-active-contributors.json
-
    running:  ATXDAONFT_V2.specialMint()
   contract:  0x610178dA211FEF7D417bC0e6FeD39F05609AD788
    network:  localhost

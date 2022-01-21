@@ -4,6 +4,10 @@ import { dynamicGetGasPrice } from '../util/gas-now';
 import { MerkleOutput } from './merkle-tree';
 import { task } from 'hardhat/config';
 
+const tree: MerkleOutput =
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  require('../metadata/zilker/zilker-merkle-tree.json');
+
 interface MintArgs {
   contractAddress?: string;
   gasPrice?: string;

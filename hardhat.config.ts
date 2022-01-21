@@ -23,6 +23,8 @@ if (fs.existsSync('typechain-types')) {
   require('./scripts/set-merkle-root');
   require('./scripts/start-mint');
   require('./scripts/sweep-eth');
+  require('./scripts/set-merkle-root');
+  require('./scripts/start-mint');
 }
 
 const {
