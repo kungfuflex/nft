@@ -5,6 +5,9 @@ import '@typechain/hardhat';
 import dotenv from 'dotenv';
 import fs from 'fs';
 import { HardhatUserConfig } from 'hardhat/config';
+import 'hardhat-deploy';
+import 'hardhat-deploy-ethers';
+import '@openzeppelin/hardhat-upgrades';
 
 dotenv.config();
 
@@ -31,7 +34,13 @@ const config: HardhatUserConfig = {
     sources: 'contracts/',
   },
   networks: {
-    hardhat: {},
+    hardhat: process.env.FORKING ? {
+      forking: {
+        enabled: true,
+	url: 'https://mainnet.infura.io/v3/816df2901a454b18b7df259e61f92cd2'
+      },
+      chainId: 1
+    } : {},
     local: {
       // hardhat network id from `hh node`
       chainId: 31337,
