@@ -11,7 +11,7 @@ interface MerkleTreeArgs {
   proofFor?: string;
 }
 
-interface MerkleOutput {
+export interface MerkleOutput {
   root: string;
   proofs: Record<string, string[]>;
 }
@@ -65,7 +65,7 @@ task<MerkleTreeArgs>(
           console.error('proof: ');
           console.error(proof);
         }
-        output.proofs[proofAddress] = proof;
+        output.proofs[proofAddress.toLowerCase()] = proof;
       });
       if (allProofs) {
         console.log(JSON.stringify(output, undefined, 4));

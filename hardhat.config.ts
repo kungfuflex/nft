@@ -4,6 +4,7 @@ import '@nomiclabs/hardhat-waffle';
 import '@typechain/hardhat';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import 'hardhat-deploy';
 import { HardhatUserConfig } from 'hardhat/config';
 import 'hardhat-deploy';
 import 'hardhat-deploy-ethers';
@@ -12,14 +13,27 @@ import '@openzeppelin/hardhat-upgrades';
 dotenv.config();
 
 if (fs.existsSync('typechain-types')) {
-  require('./scripts/deploy');
+  require('./scripts/end-mint');
   require('./scripts/get-nft-owners');
+  require('./scripts/gas-price');
   require('./scripts/merkle-tree');
-  require('./scripts/nft-v2');
+  require('./scripts/mint');
+  require('./scripts/mint-special');
+  require('./scripts/reset-has-minted');
+  require('./scripts/set-merkle-root');
+  require('./scripts/start-mint');
+  require('./scripts/sweep-eth');
 }
 
-const { MAINNET_RPC_URL, ROPSTEN_RPC_URL, PRIVATE_KEY, ETHERSCAN_API_KEY } =
-  process.env;
+const {
+  MAINNET_RPC_URL,
+  ROPSTEN_RPC_URL,
+  PRIVATE_KEY,
+  ETHERSCAN_API_KEY,
+  RINKEBY_RPC_URL,
+} = process.env;
+const privateKeys = PRIVATE_KEY ? [`0x${PRIVATE_KEY}`] : undefined;
+
 const config: HardhatUserConfig = {
   solidity: {
     version: '0.8.9',
@@ -32,6 +46,7 @@ const config: HardhatUserConfig = {
   },
   paths: {
     sources: 'contracts/',
+    tests: 'contracts/tests',
   },
   networks: {
     hardhat: process.env.FORKING ? {
@@ -48,11 +63,15 @@ const config: HardhatUserConfig = {
     },
     ropsten: {
       url: ROPSTEN_RPC_URL,
-      accounts: [`0x${PRIVATE_KEY}`],
+      accounts: privateKeys,
+    },
+    rinkeby: {
+      url: RINKEBY_RPC_URL,
+      accounts: privateKeys,
     },
     mainnet: {
       url: MAINNET_RPC_URL,
-      accounts: [`0x${PRIVATE_KEY}`],
+      accounts: privateKeys,
     },
   },
 
